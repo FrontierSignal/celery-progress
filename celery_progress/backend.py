@@ -48,11 +48,17 @@ class Progress(object):
 
     def get_info(self):
         if self.result.ready():
-            return {
+            info = {
                 'complete': True,
                 'success': self.result.successful(),
                 'progress': _get_completed_progress()
             }
+            # Attach exception message if available.
+            if not self.result.successful() and isinstance(self.result.info,
+                                                           BaseException):
+                info['exception_msg'] = self.result.info.message
+            return info
+
         elif self.result.state == PROGRESS_STATE:
             return {
                 'complete': False,

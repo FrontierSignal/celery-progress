@@ -4,7 +4,7 @@ var CeleryProgressBar = (function () {
         progressBarMessageElement.innerHTML = "Success!";
     }
 
-    function onErrorDefault(progressBarElement, progressBarMessageElement) {
+    function onErrorDefault(progressBarElement, progressBarMessageElement, exceptionMessage) {
         progressBarElement.style.backgroundColor = '#dc4f63';
         progressBarMessageElement.innerHTML = "Uh-Oh, something went wrong!";
     }
@@ -37,7 +37,7 @@ var CeleryProgressBar = (function () {
                     if (data.success) {
                         onSuccess(progressBarElement, progressBarMessageElement);
                     } else {
-                        onError(progressBarElement, progressBarMessageElement);
+                        onError(progressBarElement, progressBarMessageElement, data.exception_msg);
                     }
                 }
             });
